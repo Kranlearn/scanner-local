@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tableau de bord local de supervision TCP">
+    <title>LocalScope | Supervision TCP</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <main class="shell">
+        <header class="topbar">
+            <div>
+                <p class="kicker">LOCAL / SECURE LAB</p>
+                <h1>LocalScope</h1>
+                <p class="subtitle">Supervision TCP et historique des analyses</p>
+            </div>
+            <div class="health" id="health" aria-live="polite">
+                <span class="health-dot"></span>
+                <span>Vérification...</span>
+            </div>
+        </header>
+
+        <section class="hero-grid">
+            <div class="intro">
+                <p class="section-label">Nouvelle analyse</p>
+                <h2>Observer. Comprendre. Vérifier.</h2>
+                <p>Analyse uniquement une machine autorisée et conserve ses résultats localement dans SQLite.</p>
+            </div>
+            <form class="scan-form" id="scan-form">
+                <label>
+                    Cible autorisée
+                    <input id="target" name="target" value="127.0.0.1" required autocomplete="off">
+                </label>
+                <label>
+                    Ports
+                    <input id="ports" name="ports" value="22,80,443" required autocomplete="off">
+                </label>
+                <label>
+                    Délai (secondes)
+                    <input id="timeout" name="timeout" value="0.2" type="number" min="0.05" max="10" step="0.05" required>
+                </label>
+                <button type="submit" id="scan-button">Lancer l'analyse</button>
+                <p class="form-status" id="form-status" aria-live="polite"></p>
+            </form>
+        </section>
+
+        <section class="metrics" aria-label="Synthèse">
+            <article class="metric-card"><span>Scans enregistrés</span><strong id="scan-count">0</strong></article>
+            <article class="metric-card"><span>Ports ouverts</span><strong id="open-count">0</strong></article>
+            <article class="metric-card"><span>Dernière cible</span><strong id="last-target">-</strong></article>
+        </section>
+
+        <section class="content-grid">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div><p class="section-label">Historique</p><h2>Analyses récentes</h2></div>
+                    <button class="quiet-button" id="refresh-button" type="button">Actualiser</button>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>ID</th><th>Cible</th><th>Ports</th><th>Date UTC</th><th></th></tr></thead>
+                        <tbody id="scan-list"><tr><td colspan="5" class="empty">Chargement...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <aside class="panel detail-panel">
+                <div class="panel-heading"><div><p class="section-label">Détail</p><h2 id="detail-title">Sélectionner un scan</h2></div></div>
+                <div id="scan-detail" class="detail-empty">Les ports analysés apparaîtront ici.</div>
+            </aside>
+        </section>
+
+        <footer>Usage local uniquement · analyser uniquement des systèmes autorisés</footer>
+    </main>
+    <script src="dashboard.js" defer></script>
+</body>
+</html>
