@@ -60,7 +60,8 @@ Lancer l'API, toujours liée à la boucle locale :
 ```powershell
 python .\api.py --port 8000 --database .\scanner.db
 ```
-
+cd "/c/Users/HP OMEN/Documents/scanner-locale"
+#lancer API: python api.py --port 8000 --database scanner.db
 Routes disponibles :
 
 - `GET /` : tableau de bord web local ;
